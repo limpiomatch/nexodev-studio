@@ -1,0 +1,164 @@
+---
+---
+<section class="py-32 relative reveal" id="testimonials">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="mb-20 animate-fade-in-up">
+            <h2 class="font-headline-lg text-headline-lg text-white mb-4">Lo Que Dicen De Nosotros</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+                Personas como tú, que decidieron dar el paso y confiar en nuestro equipo para hacer crecer sus proyectos.
+            </p>
+        </div>
+        
+        <div class="testimonial-slider-container relative overflow-hidden">
+            <div class="testimonial-track" id="testimonial-track">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide">
+                    <div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+                        <div>
+                            <span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+                            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+                                "NexoDevStudio no solo creó nuestra página, se convirtieron en nuestros aliados. Siempre estuvieron ahí para apoyarnos y darnos tranquilidad."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+                                CR
+                            </div>
+                            <div>
+                                <p class="font-headline-md text-body-lg text-white font-bold">Carlos Ruiz</p>
+                                <p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">Fundador de Giordino</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide">
+                    <div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+                        <div>
+                            <span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+                            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+                                "La mejor decisión que tomamos. Entendieron exactamente lo que queríamos desde el primer día y el resultado final nos encantó."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+                                EM
+                            </div>
+                            <div>
+                                <p class="font-headline-md text-body-lg text-white font-bold">Elena Marín</p>
+                                <p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">Directora de Suroeste</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide">
+                    <div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+                        <div>
+                            <span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+                            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+                                "Un trabajo increíble y de muchísima calidad. Lograron que algo complicado se volviera súper fácil de usar para nuestros clientes."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+                                RG
+                            </div>
+                            <div>
+                                <p class="font-headline-md text-body-lg text-white font-bold">Ricardo Gómez</p>
+                                <p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">CEO de Clean Match</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls (Dots) -->
+            <div class="flex justify-center gap-3 mt-12" id="slider-dots">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function initTestimonialSlider() {
+        const track = document.getElementById('testimonial-track');
+        const dotsContainer = document.getElementById('slider-dots');
+        
+        if (!track || !dotsContainer) return;
+        
+        const slides = Array.from(track.children) as HTMLElement[];
+        let currentIndex = 0;
+        let isHovered = false;
+        
+        // Setup Dots
+        dotsContainer.innerHTML = ''; // clear if re-initialized
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-primary-fixed w-6' : 'bg-outline-variant/40'}`;
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = Array.from(dotsContainer.children);
+
+        function getVisibleCount() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        }
+
+        function updateSlider() {
+            const visibleCount = getVisibleCount();
+            const maxIndex = Math.max(0, slides.length - visibleCount);
+            
+            if (currentIndex > maxIndex) currentIndex = 0;
+            
+            const offset = currentIndex * (100 / visibleCount);
+            track!.style.transform = `translateX(-${offset}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.remove('bg-primary-fixed', 'w-6');
+                dot.classList.add('bg-outline-variant/40');
+                if (index === currentIndex) {
+                    dot.classList.add('bg-primary-fixed', 'w-6');
+                    dot.classList.remove('bg-outline-variant/40');
+                }
+            });
+        }
+
+        function goToSlide(index: number) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        function nextSlide() {
+            if (isHovered) return;
+            const visibleCount = getVisibleCount();
+            const maxIndex = slides.length - visibleCount;
+            
+            if (currentIndex >= maxIndex) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            updateSlider();
+        }
+
+        // Auto play
+        let autoPlayInterval = setInterval(nextSlide, 5000);
+
+        track.addEventListener('mouseenter', () => isHovered = true);
+        track.addEventListener('mouseleave', () => isHovered = false);
+
+        window.addEventListener('resize', updateSlider);
+        updateSlider();
+    }
+
+    initTestimonialSlider();
+    document.addEventListener('astro:page-load', initTestimonialSlider);
+</script>

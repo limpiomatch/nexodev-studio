@@ -1,0 +1,197 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Geist:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="antialiased selection:bg-primary-fixed/30 selection:text-primary">
+		<canvas id="bg-canvas"></canvas>
+		<div class="custom-cursor" id="cursor"></div>
+
+		<slot />
+
+		<script>
+			// --- SHADER SETUP ---
+			const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+			if (canvas) {
+				const gl = canvas.getContext('webgl');
+				
+				if (gl) {
+					const vertexSource = `
+						attribute vec2 position;
+						varying vec2 v_texCoord;
+						void main() {
+							v_texCoord = position * 0.5 + 0.5;
+							gl_Position = vec4(position, 0.0, 1.0);
+						}
+					`;
+
+					const fragmentSource = `
+						precision highp float;
+						varying vec2 v_texCoord;
+						uniform float u_time;
+						uniform vec2 u_resolution;
+
+						vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+						vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+						vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+						float snoise(vec2 v) {
+							const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+							vec2 i  = floor(v + dot(v, C.yy));
+							vec2 x0 = v -   i + dot(i, C.xx);
+							vec2 i1;
+							i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+							vec4 x12 = x0.xyxy + C.xxzz;
+							x12.xy -= i1;
+							i = mod289(i);
+							vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+							vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+							m = m*m;
+							m = m*m;
+							vec3 x = 2.0 * fract(p * C.www) - 1.0;
+							vec3 h = abs(x) - 0.5;
+							vec3 a0 = x - floor(x + 0.5);
+							m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+							vec3 g;
+							g.x  = a0.x  * x0.x  + h.x  * x0.y;
+							g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+							return 130.0 * dot(m, g);
+						}
+
+						void main() {
+							vec2 uv = v_texCoord;
+							float t = u_time * 0.15;
+							
+							float n1 = snoise(uv * 2.0 + t);
+							float n2 = snoise(uv * 3.0 - t * 0.8 + n1);
+							
+							vec3 col1 = vec3(0.02, 0.04, 0.07); 
+							vec3 col2 = vec3(0.0, 0.96, 1.0);   
+							vec3 col3 = vec3(0.05, 0.15, 0.25); 
+							
+							float mask = smoothstep(-1.0, 1.0, n2);
+							vec3 finalCol = mix(col1, col3, mask);
+							finalCol = mix(finalCol, col2 * 0.15, n1 * 0.5 + 0.5);
+							
+							float vig = 1.0 - smoothstep(0.5, 1.5, length(uv - 0.5));
+							
+							gl_FragColor = vec4(finalCol * vig, 1.0);
+						}
+					`;
+
+					const createShader = (type: number, source: string) => {
+						const shader = gl.createShader(type);
+						if (!shader) return null;
+						gl.shaderSource(shader, source);
+						gl.compileShader(shader);
+						return shader;
+					};
+
+					const program = gl.createProgram();
+					const vShader = createShader(gl.VERTEX_SHADER, vertexSource);
+					const fShader = createShader(gl.FRAGMENT_SHADER, fragmentSource);
+
+					if (program && vShader && fShader) {
+						gl.attachShader(program, vShader);
+						gl.attachShader(program, fShader);
+						gl.linkProgram(program);
+						gl.useProgram(program);
+
+						const buffer = gl.createBuffer();
+						gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+						gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+						const position = gl.getAttribLocation(program, 'position');
+						gl.enableVertexAttribArray(position);
+						gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+						const uTime = gl.getUniformLocation(program, 'u_time');
+						const uRes = gl.getUniformLocation(program, 'u_resolution');
+
+						const resize = () => {
+							canvas.width = window.innerWidth;
+							canvas.height = window.innerHeight;
+							gl.viewport(0, 0, canvas.width, canvas.height);
+							gl.uniform2f(uRes, canvas.width, canvas.height);
+						};
+						window.addEventListener('resize', resize);
+						resize();
+
+						const render = (time: number) => {
+							gl.uniform1f(uTime, time * 0.001);
+							gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+							requestAnimationFrame(render);
+						};
+						requestAnimationFrame(render);
+					}
+				}
+			}
+
+			// --- CURSOR AND INTERACTIONS ---
+			const cursor = document.getElementById('cursor');
+			if (cursor) {
+				document.addEventListener('mousemove', (e) => {
+					cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+				});
+
+				const attachHoverEffects = () => {
+					document.querySelectorAll('a, button').forEach(el => {
+						el.addEventListener('mouseenter', () => {
+							cursor.style.transform += ' scale(2.5)';
+							cursor.style.background = 'rgba(0, 245, 255, 0.1)';
+						});
+						el.addEventListener('mouseleave', () => {
+							cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
+							cursor.style.background = 'rgba(0, 245, 255, 0.3)';
+						});
+					});
+				};
+
+				attachHoverEffects();
+				document.addEventListener('astro:page-load', attachHoverEffects);
+			}
+
+			// --- SCROLL REVEAL ---
+			const revealOnScroll = () => {
+				const reveals = document.querySelectorAll('.reveal');
+				reveals.forEach(reveal => {
+					const windowHeight = window.innerHeight;
+					const revealTop = reveal.getBoundingClientRect().top;
+					const revealPoint = 150;
+					if (revealTop < windowHeight - revealPoint) {
+						reveal.classList.add('active');
+					}
+				});
+			};
+			window.addEventListener('scroll', revealOnScroll);
+			// Initial check and re-check on client-side routing
+			revealOnScroll();
+			document.addEventListener('astro:page-load', revealOnScroll);
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,780 @@
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JDVC // ARCHITECT - Creamos Soluciones Digitales que Hacen Crecer tu Visión</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#00f5ff",
+                    "background": "#051424",
+                    "secondary-fixed": "#f6d9ff",
+                    "outline-variant": "#3a494a",
+                    "on-background": "#d4e4fa",
+                    "on-surface": "#d4e4fa",
+                    "surface": "#051424",
+                    "on-surface-variant": "#b9caca",
+                    "surface-container-lowest": "#010f1f",
+                    "error": "#ffb4ab",
+                    "error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-bright": "#2c3a4c",
+                    "primary-fixed": "#63f7ff",
+                    "on-tertiary-container": "#006f4c",
+                    "surface-container-low": "#0d1c2d",
+                    "tertiary-container": "#69f6b9",
+                    "tertiary": "#eafff0",
+                    "surface-tint": "#00dce5",
+                    "on-tertiary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#004f53",
+                    "secondary-container": "#9d03de",
+                    "secondary": "#e8b3ff",
+                    "on-primary-fixed": "#002021",
+                    "surface-variant": "#273647",
+                    "outline": "#849495",
+                    "on-secondary": "#500074",
+                    "primary-fixed-dim": "#00dce5",
+                    "surface-container-highest": "#273647",
+                    "secondary-fixed-dim": "#e8b3ff",
+                    "primary": "#e9feff",
+                    "on-secondary-fixed-variant": "#7200a3",
+                    "inverse-surface": "#d4e4fa",
+                    "surface-container-high": "#1c2b3c",
+                    "inverse-on-surface": "#233143",
+                    "on-tertiary": "#003824",
+                    "on-primary-container": "#006c71",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-secondary-container": "#f5d6ff",
+                    "on-primary": "#003739",
+                    "on-error": "#690005",
+                    "surface-container": "#122131",
+                    "tertiary-fixed": "#6ffbbe",
+                    "inverse-primary": "#00696e",
+                    "on-secondary-fixed": "#310049",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#051424"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "body-md": ["Geist"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Geist"],
+                    "label-mono": ["Geist"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            },
+            "animation": {
+                "fade-in-up": "fadeInUp 0.8s ease-out forwards"
+            },
+            "keyframes": {
+                "fadeInUp": {
+                    "0%": { opacity: "0", transform: "translateY(40px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #051424;
+            color: #d4e4fa;
+            font-family: 'Geist', sans-serif;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .technical-grid {
+            background-image: linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .precision-border {
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            position: relative;
+        }
+
+        .precision-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid #63f7ff;
+            border-left: 1px solid #63f7ff;
+        }
+
+        .precision-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 8px;
+            height: 8px;
+            border-bottom: 1px solid #63f7ff;
+            border-right: 1px solid #63f7ff;
+        }
+
+        .glass-card-refined {
+            background: rgba(18, 33, 49, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card-refined:hover {
+            border-color: rgba(99, 247, 255, 0.4);
+            background: rgba(18, 33, 49, 0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(0, 245, 255, 0.15);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 0 30px rgba(99, 247, 255, 0.1);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 245, 255, 0.3);
+            border: 1px solid #00f5ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out, background 0.3s ease;
+            mix-blend-mode: screen;
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+        }
+
+        .reveal.active .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        /* Testimonials Slider Specific Styles */
+        .testimonial-slider-container {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimonial-slide {
+            flex: 0 0 100%;
+            padding: 0 12px;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-slide {
+                flex: 0 0 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonial-slide {
+                flex: 0 0 33.333%;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+<canvas id="bg-canvas"></canvas>
+<div class="custom-cursor" id="cursor"></div>
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/5">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold tracking-tighter text-primary">
+            JDVC // ARCHITECT
+        </div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="text-primary-fixed border-b border-primary-fixed font-body-md text-body-md transition-all" href="#work">Proyectos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#methodology">Cómo Te Acompañamos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#contact">Contacto</a>
+</div>
+<button class="border border-outline-variant hover:border-primary-fixed text-primary px-6 py-2 rounded font-medium transition-all active:scale-95 text-body-md">
+            Charlemos sobre tu idea
+        </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center pt-20 overflow-hidden reveal active">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full relative z-10">
+<div class="max-w-4xl animate-fade-in-up">
+<span class="inline-block font-label-mono text-label-mono text-primary-fixed mb-8 tracking-[0.2em] uppercase">
+                Software con Corazón Humano y Visión Global
+            </span>
+<h1 class="font-headline-xl text-headline-xl text-white mb-8 leading-[1.05] tracking-tight">
+                CREAMOS SOLUCIONES DIGITALES QUE HACEN <span class="text-primary-fixed">CRECER TU VISIÓN</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12 opacity-90">
+                Te ayudo a transformar tus ideas en herramientas tecnológicas potentes, escalables y fáciles de usar. Juntos, llevamos tu proyecto al siguiente nivel con cercanía y compromiso.
+            </p>
+<div class="flex flex-wrap gap-6">
+<a class="bg-primary-fixed text-on-primary-fixed px-8 py-4 rounded font-bold hover:shadow-[0_0_20px_rgba(99,247,255,0.4)] transition-all active:scale-95" href="#contact">
+                    Iniciar una conversación
+                </a>
+<a class="border border-outline-variant text-white px-8 py-4 rounded font-medium hover:bg-white/5 transition-all active:scale-95" href="#work">
+                    Conoce nuestro impacto
+                </a>
+</div>
+</div>
+</div>
+<!-- Coordinates Decorative -->
+<div class="absolute bottom-12 right-margin-desktop hidden lg:block font-label-mono text-label-mono text-outline-variant/30">
+        LOC: MEDELLIN, CO // HUMAN CENTERED // READY
+    </div>
+</section>
+<!-- Methodology / Pillars Section -->
+<section class="py-32 relative reveal" id="methodology">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-20 animate-fade-in-up">
+<h2 class="font-headline-lg text-headline-lg text-white mb-4">Cómo Te Acompañamos</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Entendemos que detrás de cada línea de código hay personas y sueños. Nuestro proceso está diseñado para darte tranquilidad y resultados.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-card-refined p-10 precision-border animate-fade-in-up delay-100">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-8">favorite</span>
+<h3 class="font-headline-md text-headline-md text-white mb-4">Escucha y Empatía</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Entendemos tus necesidades y retos reales antes de escribir una sola línea de código. Tu visión es nuestra brújula.
+                </p>
+</div>
+<div class="glass-card-refined p-10 precision-border animate-fade-in-up delay-200">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-8">trending_up</span>
+<h3 class="font-headline-md text-headline-md text-white mb-4">Crecimiento Sin Límites</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Diseñamos sistemas que crecen contigo y con tu negocio. Tecnología robusta que evoluciona al ritmo de tu éxito.
+                </p>
+</div>
+<div class="glass-card-refined p-10 precision-border animate-fade-in-up delay-300">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-8">verified_user</span>
+<h3 class="font-headline-md text-headline-md text-white mb-4">Tranquilidad Total</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Tu seguridad y la de tus clientes es nuestra prioridad absoluta. Protegemos lo que más valoras con los más altos estándares.
+                </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Portfolio -->
+<section class="py-32 reveal" id="work">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex justify-between items-end mb-20 border-b border-outline-variant/10 pb-10 animate-fade-in-up">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-white mb-4">Historias de Transformación</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Proyectos donde la tecnología se convirtió en una herramienta de progreso real.</p>
+</div>
+<div class="font-label-mono text-label-mono text-outline-variant tracking-widest hidden md:block">ENTREGANDO VALOR // 2024</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<!-- Project 1 -->
+<div class="group project-card animate-fade-in-up delay-100">
+<div class="relative overflow-hidden rounded mb-8 glass-card-refined aspect-video flex items-center justify-center border border-outline-variant/20">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 opacity-20 group-hover:opacity-40 grayscale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDvo9W1qvR-x2GQ6m695CuteOetrxIAOYIxOCOidXk_oUwwzRYBXKLhlTbHJVAmo01BY80RmoYu7AZnYALvei02ndiJrsc2JXS3y4HfRNqj2MsAMyV84OyltHSKRNQPLY89IbUgsobYn5CBFhSKiR8hOaTNaND_2LIl6-2kTrrs--4PQ6bzK12A45kNNh2H5VpPCc1PLjW4sDmk8KMXnuvA2fXGSFZKKNLOEa1WIIOaqsUNR3YH8bw9R5P9JMuMcQ8VYdTDaoiQHLY')"></div>
+<div class="relative z-10 text-center">
+<span class="font-label-mono text-label-mono text-primary-fixed border border-primary-fixed/30 px-6 py-2 rounded-full">E-COMMERCE MÁS HUMANO</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-3">Plataforma Giordino</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Creamos una experiencia de compra fluida y agradable, centrada en facilitar la vida del cliente final.</p>
+<div class="flex gap-4">
+<span class="font-label-mono text-[11px] uppercase tracking-widest text-outline border border-outline/20 px-2 py-1">ASTRO</span>
+<span class="font-label-mono text-[11px] uppercase tracking-widest text-outline border border-outline/20 px-2 py-1">REACT</span>
+<span class="font-label-mono text-[11px] uppercase tracking-widest text-outline border border-outline/20 px-2 py-1">UX OPTIMIZED</span>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="group project-card animate-fade-in-up delay-200">
+<div class="relative overflow-hidden rounded mb-8 glass-card-refined aspect-video flex items-center justify-center border border-outline-variant/20">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 opacity-20 group-hover:opacity-40 grayscale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3WVgqfL7tNHCljH4CFTn0mVpt-tfEWFynfm9stMTLo-2ZtL8JVYrOKWqSRHiQL8s7BuLdrv_6POzha31EZ7UsINEtMT65tx1-BLj5UlfjxpBmO1S9UaTpLou56r-AcMufexVip6qDeO_DVG-n0z2dudU1P2nwAx6ySv7JCRo93nAjL9JHSBTo_fihn9Nx4rxE7-Re0EfAZsxcHrJD9GExWgck353EIZBNFO7cBZKD1LAOfwyh0hDy-WsRnoKhnIQ4uFgSlgUXfQw')"></div>
+<div class="relative z-10 text-center">
+<span class="font-label-mono text-label-mono text-primary-fixed border border-primary-fixed/30 px-6 py-2 rounded-full">CONECTIVIDAD CERCANA</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-3">Ecosistema Suroeste</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Digitalizamos la pasión gastronómica local, conectando negocios con sus comensales de forma directa y sencilla.</p>
+<div class="flex gap-4">
+<span class="font-label-mono text-[11px] uppercase tracking-widest text-outline border border-outline/20 px-2 py-1">MOBILE FIRST</span>
+<span class="font-label-mono text-[11px] uppercase tracking-widest text-outline border border-outline/20 px-2 py-1">HUMAN INTERACTION</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack Scrolling -->
+<section class="py-24 border-y border-outline-variant/5 bg-surface-container-low/50 overflow-hidden reveal">
+<div class="animate-scroll gap-20 items-center px-16">
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">code</span> JAVASCRIPT / TYPESCRIPT
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">web</span> REACT ECOSYSTEM
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">rocket</span> ASTRO FRAMEWORK
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">dns</span> NODE.JS BACKEND
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">database</span> MONGODB / POSTGRES
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">cloud_sync</span> AWS / GOOGLE CLOUD
+        </div>
+<!-- Duplicate for loop -->
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">code</span> JAVASCRIPT / TYPESCRIPT
+        </div>
+<div class="flex items-center gap-4 text-outline-variant font-label-mono text-label-mono tracking-widest group hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-fixed">web</span> REACT ECOSYSTEM
+        </div>
+</div>
+</section>
+<!-- Testimonials Section with Auto-Carousel -->
+<section class="py-32 relative reveal" id="testimonials">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-20 animate-fade-in-up">
+<h2 class="font-headline-lg text-headline-lg text-white mb-4">Voces de Confianza</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Lo que dicen quienes han confiado en nosotros para transformar su visión en realidad digital.</p>
+</div>
+<div class="testimonial-slider-container relative overflow-hidden">
+<div class="testimonial-track" id="testimonial-track">
+<!-- Testimonial 1 -->
+<div class="testimonial-slide">
+<div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+<div>
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+            "Juan no solo desarrolló nuestra plataforma, se convirtió en parte del equipo. Su apoyo constante nos dio la tranquilidad que necesitábamos."
+          </p>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+            CR
+          </div>
+<div>
+<p class="font-headline-md text-body-lg text-white font-bold">Carlos Ruiz</p>
+<p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">Fundador de Giordino</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="testimonial-slide">
+<div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+<div>
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+            "La mejor decisión para nuestra digitalización. Entendió nuestras necesidades desde el día uno y el resultado superó nuestras expectativas."
+          </p>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+            EM
+          </div>
+<div>
+<p class="font-headline-md text-body-lg text-white font-bold">Elena Marín</p>
+<p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">Directora de Suroeste</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="testimonial-slide">
+<div class="glass-card-refined p-10 precision-border flex flex-col justify-between h-full">
+<div>
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8 italic">
+            "Profesionalismo y calidad excepcionales. Logró simplificar procesos complejos en una interfaz que nuestros clientes adoran."
+          </p>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold shrink-0">
+            RG
+          </div>
+<div>
+<p class="font-headline-md text-body-lg text-white font-bold">Ricardo Gómez</p>
+<p class="font-label-mono text-[11px] text-outline-variant uppercase tracking-widest">CEO de Clean Match</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Cloned slides for infinite loop feel (optional, but standard for track sliders) -->
+</div>
+<!-- Controls (Dots) -->
+<div class="flex justify-center gap-3 mt-12" id="slider-dots">
+<!-- Generated by JS -->
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-40 relative overflow-hidden reveal" id="contact">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
+<div class="animate-fade-in-up">
+<h2 class="font-headline-xl text-headline-xl text-white mb-8 tracking-tight">¿Hablamos sobre tu <span class="text-primary-fixed">próximo paso</span>?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-16 leading-relaxed opacity-90">
+                    Estamos aquí para escucharte. Ya sea una idea naciente o un sistema que necesita evolucionar, queremos ser tus aliados estratégicos en el mundo digital.
+                </p>
+<div class="space-y-10">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 glass-card-refined rounded flex items-center justify-center text-primary-fixed border border-outline-variant/20">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<div>
+<p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Contacto Directo</p>
+<p class="font-headline-md text-headline-md text-white">hola@jdvc.architect</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 glass-card-refined rounded flex items-center justify-center text-primary-fixed border border-outline-variant/20">
+<span class="material-symbols-outlined">handshake</span>
+</div>
+<div>
+<p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Alianzas</p>
+<p class="font-headline-md text-headline-md text-white">Construyamos Juntos</p>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card-refined p-12 rounded precision-border animate-fade-in-up delay-200">
+<form class="space-y-8">
+<div>
+<label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">¿Cómo te llamas?</label>
+<input class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="Tu nombre o el de tu marca" type="text"/>
+</div>
+<div>
+<label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">¿Cómo te contactamos?</label>
+<input class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="tu@email.com" type="email"/>
+</div>
+<div>
+<label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">Cuéntanos tu visión</label>
+<textarea class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="¿Qué tienes en mente? Queremos conocer tu proyecto..." rows="5"></textarea>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-5 rounded font-bold text-lg hover:shadow-[0_0_20px_rgba(99,247,255,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.99]">
+                        CHARLEMOS SOBRE TU IDEA <span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface/50 backdrop-blur-sm border-t border-outline-variant/10 w-full py-16">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop gap-12 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-primary font-bold">
+            JDVC // ARCHITECT
+        </div>
+<div class="flex gap-12">
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors font-label-mono text-label-mono tracking-widest" href="#">GITHUB</a>
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors font-label-mono text-label-mono tracking-widest" href="#">LINKEDIN</a>
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors font-label-mono text-label-mono tracking-widest" href="#">INSTAGRAM</a>
+</div>
+<div class="text-on-surface-variant font-label-mono text-label-mono text-center md:text-right opacity-60">
+            © 2024 JUAN DAVID VALENCIA CHICA. CONSTRUYENDO FUTURO, PASO A PASO.
+        </div>
+</div>
+</footer>
+<script>
+    // --- SHADER SETUP ---
+    const canvas = document.getElementById('bg-canvas');
+    const gl = canvas.getContext('webgl');
+    
+    const vertexSource = `
+        attribute vec2 position;
+        varying vec2 v_texCoord;
+        void main() {
+            v_texCoord = position * 0.5 + 0.5;
+            gl_Position = vec4(position, 0.0, 1.0);
+        }
+    `;
+
+    const fragmentSource = `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+        float snoise(vec2 v) {
+            const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+            vec2 i  = floor(v + dot(v, C.yy));
+            vec2 x0 = v -   i + dot(i, C.xx);
+            vec2 i1;
+            i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+            vec4 x12 = x0.xyxy + C.xxzz;
+            x12.xy -= i1;
+            i = mod289(i);
+            vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+            vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+            m = m*m;
+            m = m*m;
+            vec3 x = 2.0 * fract(p * C.www) - 1.0;
+            vec3 h = abs(x) - 0.5;
+            vec3 a0 = x - floor(x + 0.5);
+            m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+            vec3 g;
+            g.x  = a0.x  * x0.x  + h.x  * x0.y;
+            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+            return 130.0 * dot(m, g);
+        }
+
+        void main() {
+            vec2 uv = v_texCoord;
+            float t = u_time * 0.15;
+            
+            float n1 = snoise(uv * 2.0 + t);
+            float n2 = snoise(uv * 3.0 - t * 0.8 + n1);
+            
+            vec3 col1 = vec3(0.02, 0.04, 0.07); 
+            vec3 col2 = vec3(0.0, 0.96, 1.0);   
+            vec3 col3 = vec3(0.05, 0.15, 0.25); 
+            
+            float mask = smoothstep(-1.0, 1.0, n2);
+            vec3 finalCol = mix(col1, col3, mask);
+            finalCol = mix(finalCol, col2 * 0.15, n1 * 0.5 + 0.5);
+            
+            float vig = 1.0 - smoothstep(0.5, 1.5, length(uv - 0.5));
+            
+            gl_FragColor = vec4(finalCol * vig, 1.0);
+        }
+    `;
+
+    function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        return shader;
+    }
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vertexSource));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fragmentSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+    const position = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+    const uTime = gl.getUniformLocation(program, 'u_time');
+    const uRes = gl.getUniformLocation(program, 'u_resolution');
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function render(time) {
+        gl.uniform1f(uTime, time * 0.001);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+
+    // --- CURSOR AND INTERACTIONS ---
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform += ' scale(2.5)';
+            cursor.style.background = 'rgba(0, 245, 255, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
+            cursor.style.background = 'rgba(0, 245, 255, 0.3)';
+        });
+    });
+
+    // --- SCROLL REVEAL ---
+    const reveals = document.querySelectorAll('.reveal');
+    function revealOnScroll() {
+        reveals.forEach(reveal => {
+            const windowHeight = window.innerHeight;
+            const revealTop = reveal.getBoundingClientRect().top;
+            const revealPoint = 150;
+            if (revealTop < windowHeight - revealPoint) {
+                reveal.classList.add('active');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // Initial check
+
+    // --- SMOOTH SCROLL ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // --- NAVBAR BEHAVIOR ---
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('h-16');
+            nav.classList.remove('h-20');
+        } else {
+            nav.classList.add('h-20');
+            nav.classList.remove('h-16');
+        }
+    });
+
+    // --- TESTIMONIALS SLIDER LOGIC ---
+    function initTestimonialSlider() {
+        const track = document.getElementById('testimonial-track');
+        const dotsContainer = document.getElementById('slider-dots');
+        const slides = Array.from(track.children);
+        let currentIndex = 0;
+        let isHovered = false;
+        
+        // Setup Dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-primary-fixed w-6' : 'bg-outline-variant/40'}`;
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = Array.from(dotsContainer.children);
+
+        function getVisibleCount() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        }
+
+        function updateSlider() {
+            const visibleCount = getVisibleCount();
+            const maxIndex = Math.max(0, slides.length - visibleCount);
+            
+            if (currentIndex > maxIndex) currentIndex = 0;
+            
+            const offset = currentIndex * (100 / visibleCount);
+            track.style.transform = `translateX(-${offset}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.remove('bg-primary-fixed', 'w-6');
+                dot.classList.add('bg-outline-variant/40');
+                if (index === currentIndex) {
+                    dot.classList.add('bg-primary-fixed', 'w-6');
+                    dot.classList.remove('bg-outline-variant/40');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        function nextSlide() {
+            if (isHovered) return;
+            const visibleCount = getVisibleCount();
+            const maxIndex = slides.length - visibleCount;
+            
+            if (currentIndex >= maxIndex) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            updateSlider();
+        }
+
+        // Auto play
+        let autoPlayInterval = setInterval(nextSlide, 5000);
+
+        track.addEventListener('mouseenter', () => isHovered = true);
+        track.addEventListener('mouseleave', () => isHovered = false);
+
+        window.addEventListener('resize', updateSlider);
+        updateSlider();
+    }
+
+    initTestimonialSlider();
+</script>
+</body></html>

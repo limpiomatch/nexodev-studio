@@ -1,0 +1,62 @@
+---
+import { MessageSquare, ArrowUpRight, Zap, Database, Smartphone } from 'lucide-react';
+---
+
+<div class="text-left mb-16 max-w-3xl">
+  <span class="text-xs font-mono uppercase text-brand-cyan tracking-widest block mb-3">// INDUSTRIAL SOLUTIONS</span>
+  <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none">E-commerce de Alta Rotación</h2>
+  <p class="text-slate-400 mt-4 text-lg font-light">
+    Infraestructura optimizada para el sector gastronómico. Carga instantánea, bases de datos no relacionales y enrutamiento automatizado a WhatsApp.
+  </p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  
+  <div class="md:col-span-2 relative group rounded-3xl bg-white/[0.01] subtle-border p-8 md:p-10 flex flex-col justify-between overflow-hidden shadow-2xl backdrop-blur-md hover:bg-white/[0.03] transition-all duration-300">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-brand-purple/10 to-transparent blur-3xl pointer-events-none"></div>
+    
+    <div>
+      <div class="flex justify-between items-center">
+        <span class="text-[10px] font-mono tracking-wider uppercase bg-brand-purple/10 text-brand-purple border border-brand-purple/20 px-3 py-1 rounded-md"> flagship architecture </span>
+        <div class="p-2 bg-white/[0.02] subtle-border rounded-xl text-slate-400 group-hover:text-white transition-colors">
+          <Zap class="w-5 h-5" />
+        </div>
+      </div>
+      <h3 class="text-3xl font-extrabold text-white mt-8 tracking-tight group-hover:text-brand-purple transition-colors">Giordino Pizza Premium</h3>
+      <p class="text-slate-400 mt-4 text-base font-light leading-relaxed max-w-xl">
+        Una obra de ingeniería para pizzerías gourmet. Implementa mutaciones de estado en caliente para la selección dinámica de ingredientes, cálculo automático de costos y sincronización inmediata con despachos de cocina.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-4">
+      <div class="flex gap-4 text-xs font-mono text-slate-500">
+        <span>[ SSR_ENABLED ]</span>
+        <span>[ CDN_CLOUDINARY ]</span>
+      </div>
+      <a href="https://wa.me/573226933654?text=Demo_Giordino" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-cyan hover:text-white transition-colors">
+        Probar Pipeline <ArrowUpRight class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+
+  <div class="md:col-span-1 relative group rounded-3xl bg-white/[0.01] subtle-border p-8 flex flex-col justify-between overflow-hidden shadow-2xl backdrop-blur-md hover:bg-white/[0.03] transition-all duration-300">
+    <div>
+      <div class="flex justify-between items-center">
+        <span class="text-[10px] font-mono tracking-wider uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-md"> Mobile First </span>
+        <Smartphone class="w-5 h-5 text-slate-500" />
+      </div>
+      <h3 class="text-2xl font-bold text-white mt-8 tracking-tight">Don Juan Express</h3>
+      <p class="text-slate-400 mt-3 text-xs font-light leading-relaxed">
+        Menú ultraligero estructurado para conexiones móviles inestables en áreas rurales. Carga el core de la app en menos de 0.4 segundos usando renderizado estático.
+      </p>
+    </div>
+
+    <div class="mt-8 pt-4 border-t border-white/[0.05]">
+      <a href="https://wa.me/573226933654?text=Demo_DonJuan" target="_blank" class="inline-flex items-center justify-between w-full text-xs font-mono text-slate-400 hover:text-white transition-colors">
+        <span>Checkout WhatsApp</span>
+        <MessageSquare class="w-4 h-4 text-emerald-400" />
+      </a>
+    </div>
+  </div>
+
+</div>

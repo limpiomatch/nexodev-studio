@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-container: #00f5ff;
+  --color-background: #051424;
+  --color-secondary-fixed: #f6d9ff;
+  --color-outline-variant: #3a494a;
+  --color-on-background: #d4e4fa;
+  --color-on-surface: #d4e4fa;
+  --color-surface: #051424;
+  --color-on-surface-variant: #b9caca;
+  --color-surface-container-lowest: #010f1f;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-tertiary-fixed-dim: #4edea3;
+  --color-surface-bright: #2c3a4c;
+  --color-primary-fixed: #63f7ff;
+  --color-on-tertiary-container: #006f4c;
+  --color-surface-container-low: #0d1c2d;
+  --color-tertiary-container: #69f6b9;
+  --color-tertiary: #eafff0;
+  --color-surface-tint: #00dce5;
+  --color-on-tertiary-fixed: #002113;
+  --color-on-primary-fixed-variant: #004f53;
+  --color-secondary-container: #9d03de;
+  --color-secondary: #e8b3ff;
+  --color-on-primary-fixed: #002021;
+  --color-surface-variant: #273647;
+  --color-outline: #849495;
+  --color-on-secondary: #500074;
+  --color-primary-fixed-dim: #00dce5;
+  --color-surface-container-highest: #273647;
+  --color-secondary-fixed-dim: #e8b3ff;
+  --color-primary: #e9feff;
+  --color-on-secondary-fixed-variant: #7200a3;
+  --color-inverse-surface: #d4e4fa;
+  --color-surface-container-high: #1c2b3c;
+  --color-inverse-on-surface: #233143;
+  --color-on-tertiary: #003824;
+  --color-on-primary-container: #006c71;
+  --color-on-tertiary-fixed-variant: #005236;
+  --color-on-secondary-container: #f5d6ff;
+  --color-on-primary: #003739;
+  --color-on-error: #690005;
+  --color-surface-container: #122131;
+  --color-tertiary-fixed: #6ffbbe;
+  --color-inverse-primary: #00696e;
+  --color-on-secondary-fixed: #310049;
+  --color-on-error-container: #ffdad6;
+  --color-surface-dim: #051424;
+
+  --spacing-unit: 8px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+  --spacing-container-max: 1280px;
+  --spacing-gutter: 24px;
+
+  --font-headline-xl: "Plus Jakarta Sans";
+  --font-body-md: "Geist";
+  --font-headline-md: "Plus Jakarta Sans";
+  --font-body-lg: "Geist";
+  --font-label-mono: "Geist";
+  --font-headline-lg-mobile: "Plus Jakarta Sans";
+  --font-headline-lg: "Plus Jakarta Sans";
+
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: 'Geist', sans-serif;
+    overflow-x: hidden;
+    cursor: none; /* Custom cursor */
+  }
+}
+
+/* Utilities for text styles mapped from previous config */
+@utility text-headline-xl {
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+@utility text-body-md {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+@utility text-headline-md {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+@utility text-body-lg {
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+@utility text-label-mono {
+  font-size: 12px;
+  line-height: 1.0;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+@utility text-headline-lg-mobile {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+@utility text-headline-lg {
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Canvas Background */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.technical-grid {
+  background-image: linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.precision-border {
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  position: relative;
+}
+
+.precision-border::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--color-primary-fixed);
+  border-left: 1px solid var(--color-primary-fixed);
+}
+
+.precision-border::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid var(--color-primary-fixed);
+  border-right: 1px solid var(--color-primary-fixed);
+}
+
+.glass-card-refined {
+  background: rgba(18, 33, 49, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card-refined:hover {
+  border-color: rgba(99, 247, 255, 0.4);
+  background: rgba(18, 33, 49, 0.6);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 30px -10px rgba(0, 245, 255, 0.15);
+}
+
+.project-card:hover {
+  box-shadow: 0 0 30px rgba(99, 247, 255, 0.1);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 245, 255, 0.3);
+  border: 1px solid var(--color-primary-container);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-out, background 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+}
+
+.reveal.active .animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Testimonials Slider Specific Styles */
+.testimonial-slider-container {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-slide {
+  flex: 0 0 100%;
+  padding: 0 12px;
+}
+
+@media (min-width: 768px) {
+  .testimonial-slide {
+      flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonial-slide {
+      flex: 0 0 33.333%;
+  }
+}
