@@ -1,49 +1,139 @@
 ---
+
 ---
-<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/5 transition-all duration-300 h-20" id="main-nav">
-    <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        <div class="font-headline-md text-headline-md font-bold tracking-tighter text-primary">
-            NexoDevStudio
-        </div>
+
+<nav
+    class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/5 transition-all duration-300 h-20"
+    id="main-nav"
+>
+    <div
+        class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
+    >
+        <a
+            href=""
+            class="cursor-pointer font-headline-md text-headline-md font-bold tracking-tighter title-nexo"
+        >
+            NexoDev<span class="title-studio">Studio</span>
+        </a>
         <div class="hidden md:flex gap-10 items-center">
-            <a class="text-primary-fixed border-b border-primary-fixed font-body-md text-body-md transition-all" href="#work">Proyectos</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#methodology">Cómo Trabajamos</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#contact">Contacto</a>
+            <a
+                class="nav-link font-body-md text-body-md transition-all relative"
+                href="#methodology"
+                data-section="methodology">METODOLOGÍA</a
+            >
+            <a
+                class="nav-link font-body-md text-body-md transition-all relative"
+                href="#work"
+                data-section="work">PROYECTOS</a
+            >
+            <a
+                class="nav-link font-body-md text-body-md transition-all relative"
+                href="#contact"
+                data-section="contact">CONTACTO</a
+            >
         </div>
-        <a href="#contact" class="border border-outline-variant hover:border-primary-fixed text-primary px-6 py-2 rounded font-medium transition-all active:scale-95 text-body-md inline-block">
+        <a
+            href="#contact"
+            class="border border-outline-variant hover:border-primary-fixed text-on-surface-variant px-6 py-2 rounded font-medium transition-all active:scale-95 text-body-md inline-block"
+        >
             Charlemos sobre tu idea
         </a>
     </div>
 </nav>
 
+<style>
+    .nav-link {
+        color: var(--color-on-surface-variant);
+        padding-bottom: 4px;
+    }
+
+    .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: var(--color-primary-fixed);
+        border-radius: 2px;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover {
+        color: var(--color-primary-fixed);
+    }
+
+    .nav-link.active {
+        color: var(--color-primary-fixed);
+    }
+
+    .nav-link.active::after {
+        width: 100%;
+    }
+</style>
+
 <script>
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('main-nav');
+    // ── Scroll shrink ────────────────────────────────────────
+    window.addEventListener("scroll", () => {
+        const nav = document.getElementById("main-nav");
         if (nav) {
             if (window.scrollY > 50) {
-                nav.classList.add('h-16');
-                nav.classList.remove('h-20');
+                nav.classList.add("h-16");
+                nav.classList.remove("h-20");
             } else {
-                nav.classList.add('h-20');
-                nav.classList.remove('h-16');
+                nav.classList.add("h-20");
+                nav.classList.remove("h-16");
             }
         }
     });
 
-    // Smooth scroll for nav links
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    // ── Smooth scroll + inmediato active al hacer click ─────
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+        'nav a.nav-link[href^="#"]',
+    );
+
+    navLinks.forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
             e.preventDefault();
-            const href = this.getAttribute('href');
-            if(href) {
+            const href = this.getAttribute("href");
+            if (href) {
+                // Marcar activo inmediatamente al hacer click
+                navLinks.forEach((l) => l.classList.remove("active"));
+                this.classList.add("active");
+
                 const target = document.querySelector(href);
                 if (target) {
                     window.scrollTo({
                         top: (target as HTMLElement).offsetTop - 80,
-                        behavior: 'smooth'
+                        behavior: "smooth",
                     });
                 }
             }
         });
     });
+
+    // ── IntersectionObserver: marca activo según sección visible ──
+    const sections = document.querySelectorAll<HTMLElement>("section[id]");
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+                    navLinks.forEach((link) => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("data-section") === id) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        },
+        {
+            rootMargin: "-30% 0px -60% 0px",
+            threshold: 0,
+        },
+    );
+
+    sections.forEach((section) => observer.observe(section));
 </script>

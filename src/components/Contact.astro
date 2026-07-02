@@ -1,12 +1,21 @@
 ---
+import { CONTACT, CHAT_STEPS } from '../data/data';
+
+const stepsJson = JSON.stringify(CHAT_STEPS);
+const whatsapp = CONTACT.whatsapp;
+const whatsappDisplay = CONTACT.whatsappDisplay;
 ---
 <section class="py-40 relative overflow-hidden reveal" id="contact">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
+
+            <!-- Left: Info -->
             <div class="animate-fade-in-up">
-                <h2 class="font-headline-xl text-headline-xl text-white mb-8 tracking-tight">¿Hablamos sobre tu <span class="text-primary-fixed">próximo gran paso</span>?</h2>
+                <h2 class="font-headline-xl text-headline-xl text-white mb-8 tracking-tight">
+                    ¿Hablamos sobre tu <span class="text-primary-fixed">próximo gran paso</span>?
+                </h2>
                 <p class="font-body-lg text-body-lg text-on-surface-variant mb-16 leading-relaxed opacity-90">
-                    Nos encanta escuchar nuevas ideas. Ya sea que estés empezando desde cero o quieras mejorar lo que ya tienes, queremos ser tu aliado tecnológico y ayudarte a crecer.
+                    Agenda una sesión gratuita de 30 minutos con nuestro desarrollador. Cuéntanos tu idea y te decimos cómo hacerla realidad.
                 </p>
                 <div class="space-y-10">
                     <div class="flex items-center gap-6">
@@ -14,8 +23,17 @@
                             <span class="material-symbols-outlined">chat_bubble</span>
                         </div>
                         <div>
-                            <p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Contacto Directo</p>
-                            <p class="font-headline-md text-headline-md text-white">hola@nexodev.studio</p>
+                            <p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">WhatsApp Directo</p>
+                            <p class="font-headline-md text-headline-md text-white">{whatsappDisplay}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 glass-card-refined rounded flex items-center justify-center text-primary-fixed border border-outline-variant/20">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </div>
+                        <div>
+                            <p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Sesión de descubrimiento</p>
+                            <p class="font-headline-md text-headline-md text-white">30 min · Sin costo</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-6">
@@ -23,32 +41,372 @@
                             <span class="material-symbols-outlined">handshake</span>
                         </div>
                         <div>
-                            <p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Alianzas</p>
-                            <p class="font-headline-md text-headline-md text-white">Hagamos equipo</p>
+                            <p class="font-label-mono text-label-mono text-outline uppercase tracking-widest mb-1">Respuesta en</p>
+                            <p class="font-headline-md text-headline-md text-white">Menos de 24 horas</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="glass-card-refined p-12 rounded precision-border animate-fade-in-up delay-200">
-                <form class="space-y-8" onsubmit="event.preventDefault();">
-                    <div>
-                        <label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">¿Cómo te llamas?</label>
-                        <input class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="Tu nombre o el de tu marca" type="text" required/>
+
+            <!-- Right: Chatbot -->
+            <div class="glass-card-refined rounded precision-border animate-fade-in-up delay-200 flex flex-col" style="min-height: 480px;">
+
+                <!-- Chat Header -->
+                <div class="flex items-center gap-4 px-8 py-5 border-b border-outline-variant/20">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full bg-primary-fixed/20 border border-primary-fixed/40 flex items-center justify-center text-primary-fixed">
+                            <span class="material-symbols-outlined text-xl">smart_toy</span>
+                        </div>
+                        <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-surface"></span>
                     </div>
                     <div>
-                        <label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">¿A dónde te escribimos?</label>
-                        <input class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="tu@email.com" type="email" required/>
+                        <p class="font-headline-md text-sm text-white font-semibold">Asistente NexoDevStudio</p>
+                        <p class="font-label-mono text-[10px] text-green-400 uppercase tracking-widest">En línea</p>
                     </div>
-                    <div>
-                        <label class="block font-label-mono text-label-mono text-primary-fixed mb-3 uppercase tracking-widest">¿Qué tienes en mente?</label>
-                        <textarea class="w-full bg-surface-container-highest border border-outline-variant/20 rounded p-4 text-white focus:border-primary-fixed focus:ring-0 outline-none transition-all placeholder:text-outline-variant/50" placeholder="Queremos conocer tu proyecto..." rows="5" required></textarea>
-                    </div>
-                    <button class="w-full bg-primary-fixed text-on-primary-fixed py-5 rounded font-bold text-lg hover:shadow-[0_0_20px_rgba(99,247,255,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.99]" type="submit">
-                        EMPEZAR AHORA <span class="material-symbols-outlined">send</span>
-                    </button>
-                </form>
+                </div>
+
+                <!-- Chat Messages -->
+                <div id="chat-messages" class="flex-1 overflow-y-auto px-8 py-6 space-y-4" style="max-height: 340px;">
+                    <!-- Messages rendered by JS -->
+                </div>
+
+                <!-- Chat Input / Options Area -->
+                <div id="chat-input-area" class="px-8 pb-8 pt-4 border-t border-outline-variant/10">
+                    <!-- Dynamic content by JS -->
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    .chat-bubble-bot {
+        max-width: 80%;
+        background: rgba(0, 56, 146, 0.45);
+        border: 1px solid rgba(0, 115, 203, 0.25);
+        border-radius: 4px 16px 16px 16px;
+        padding: 12px 16px;
+        color: #e8f3ff;
+        font-size: 14px;
+        line-height: 1.6;
+        animation: bubbleIn 0.3s ease-out forwards;
+    }
+
+    .chat-bubble-user {
+        max-width: 80%;
+        margin-left: auto;
+        background: rgba(0, 115, 203, 0.3);
+        border: 1px solid rgba(0, 115, 203, 0.4);
+        border-radius: 16px 4px 16px 16px;
+        padding: 12px 16px;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.6;
+        animation: bubbleIn 0.3s ease-out forwards;
+    }
+
+    .chat-option-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px 16px;
+        border: 1px solid rgba(0, 115, 203, 0.3);
+        border-radius: 8px;
+        background: rgba(0, 33, 94, 0.4);
+        color: #90c8f0;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'Geist', sans-serif;
+    }
+
+    .chat-option-btn:hover {
+        background: rgba(0, 115, 203, 0.25);
+        border-color: rgba(0, 115, 203, 0.6);
+        color: #fff;
+        transform: translateX(4px);
+    }
+
+    .chat-text-input {
+        width: 100%;
+        background: rgba(0, 33, 94, 0.5);
+        border: 1px solid rgba(0, 115, 203, 0.25);
+        border-radius: 8px;
+        padding: 12px 16px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: 'Geist', sans-serif;
+    }
+
+    .chat-text-input:focus {
+        border-color: rgba(0, 115, 203, 0.7);
+    }
+
+    .chat-text-input::placeholder {
+        color: rgba(138, 154, 184, 0.5);
+    }
+
+    .whatsapp-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #25D366, #128C7E);
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.25s ease;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        text-decoration: none;
+    }
+
+    .whatsapp-btn:hover {
+        box-shadow: 0 0 24px rgba(37, 211, 102, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        padding: 12px 16px;
+        background: rgba(0, 56, 146, 0.45);
+        border: 1px solid rgba(0, 115, 203, 0.25);
+        border-radius: 4px 16px 16px 16px;
+        width: fit-content;
+    }
+
+    .typing-dot {
+        width: 7px;
+        height: 7px;
+        background: rgba(0, 115, 203, 0.7);
+        border-radius: 50%;
+        animation: typingBounce 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+        0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+        40% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    @keyframes bubbleIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script define:vars={{ stepsJson, whatsapp }}>
+    const STEPS = JSON.parse(stepsJson);
+    const WA_NUMBER = whatsapp;
+
+    const messagesContainer = document.getElementById('chat-messages');
+    const inputArea = document.getElementById('chat-input-area');
+
+    // State
+    const state = {
+        currentStepId: 'welcome',
+        answers: {},
+        userName: '',
+    };
+
+    function scrollToBottom() {
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+
+    function addBotBubble(text) {
+        const div = document.createElement('div');
+        div.className = 'chat-bubble-bot';
+        div.textContent = text;
+        messagesContainer?.appendChild(div);
+        scrollToBottom();
+    }
+
+    function addUserBubble(text) {
+        const div = document.createElement('div');
+        div.className = 'chat-bubble-user';
+        div.textContent = text;
+        messagesContainer?.appendChild(div);
+        scrollToBottom();
+    }
+
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'typing-indicator';
+        typing.id = 'typing-indicator';
+        typing.innerHTML = `
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+        `;
+        messagesContainer?.appendChild(typing);
+        scrollToBottom();
+    }
+
+    function removeTyping() {
+        document.getElementById('typing-indicator')?.remove();
+    }
+
+    function getStep(id) {
+        return STEPS.find(s => s.id === id);
+    }
+
+    function buildWhatsAppMessage() {
+        const name = state.answers['get_name'] || 'un visitante';
+        const project = state.answers['project_type'] || 'No especificado';
+        const budget = state.answers['budget'] || 'No especificado';
+        const availability = state.answers['availability'] || 'No especificado';
+
+        const msg = `¡Hola NexoDevStudio! 👋
+
+Quiero agendar una sesión de 30 minutos.
+
+📋 *Mi consulta:*
+• *Nombre:* ${name}
+• *Tipo de proyecto:* ${project}
+• *Presupuesto:* ${budget}
+• *Disponibilidad:* ${availability}
+
+¿Cuándo podemos hablar? 🚀`;
+
+        return encodeURIComponent(msg);
+    }
+
+    function showWhatsAppButton() {
+        if (!inputArea) return;
+        const msg = buildWhatsAppMessage();
+        const url = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+        inputArea.innerHTML = `
+            <a href="${url}" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+                </svg>
+                Enviar solicitud por WhatsApp
+            </a>
+        `;
+    }
+
+    function renderStep(stepId) {
+        const step = getStep(stepId);
+        if (!step) return;
+
+        state.currentStepId = stepId;
+
+        // Clear input area
+        if (inputArea) inputArea.innerHTML = '';
+
+        if (step.type === 'message') {
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                addBotBubble(step.message);
+
+                if (step.next === 'done') {
+                    showWhatsAppButton();
+                } else if (step.next) {
+                    setTimeout(() => renderStep(step.next), 600);
+                }
+            }, 900);
+
+        } else if (step.type === 'options') {
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                addBotBubble(step.message);
+
+                // Render option buttons
+                const wrapper = document.createElement('div');
+                wrapper.className = 'space-y-2';
+
+                step.options?.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chat-option-btn';
+                    btn.textContent = option;
+                    btn.addEventListener('click', () => {
+                        state.answers[stepId] = option;
+                        addUserBubble(option);
+                        if (inputArea) inputArea.innerHTML = '';
+
+                        const nextId = step.optionNextMap?.[option] || step.next;
+                        if (nextId) {
+                            setTimeout(() => renderStep(nextId), 400);
+                        }
+                    });
+                    wrapper.appendChild(btn);
+                });
+
+                if (inputArea) inputArea.appendChild(wrapper);
+            }, 900);
+
+        } else if (step.type === 'input') {
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                addBotBubble(step.message);
+
+                const form = document.createElement('div');
+                form.className = 'flex gap-3';
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'chat-text-input flex-1';
+                input.placeholder = step.placeholder || 'Escribe aquí...';
+
+                const sendBtn = document.createElement('button');
+                sendBtn.style.cssText = `
+                    padding: 0 16px;
+                    background: rgba(0,115,203,0.4);
+                    border: 1px solid rgba(0,115,203,0.5);
+                    border-radius: 8px;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                `;
+                sendBtn.innerHTML = '<span class="material-symbols-outlined">send</span>';
+
+                const handleSend = () => {
+                    const val = input.value.trim();
+                    if (!val) return;
+
+                    state.answers[stepId] = val;
+                    if (stepId === 'get_name') state.userName = val;
+
+                    addUserBubble(val);
+                    if (inputArea) inputArea.innerHTML = '';
+
+                    if (step.next) {
+                        setTimeout(() => renderStep(step.next), 400);
+                    }
+                };
+
+                sendBtn.addEventListener('click', handleSend);
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleSend();
+                });
+
+                form.appendChild(input);
+                form.appendChild(sendBtn);
+                if (inputArea) inputArea.appendChild(form);
+
+                input.focus();
+            }, 900);
+        }
+    }
+
+    // Start the chat
+    renderStep('welcome');
+</script>

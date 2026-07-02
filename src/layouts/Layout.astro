@@ -29,7 +29,6 @@ const { title } = Astro.props;
 	</head>
 	<body class="antialiased selection:bg-primary-fixed/30 selection:text-primary">
 		<canvas id="bg-canvas"></canvas>
-		<div class="custom-cursor" id="cursor"></div>
 
 		<slot />
 
@@ -84,20 +83,32 @@ const { title } = Astro.props;
 
 						void main() {
 							vec2 uv = v_texCoord;
-							float t = u_time * 0.15;
+							float t = u_time * 0.12;
 							
+							// Capas de ruido para movimiento orgánico
 							float n1 = snoise(uv * 2.0 + t);
 							float n2 = snoise(uv * 3.0 - t * 0.8 + n1);
+							float n3 = snoise(uv * 5.0 + t * 0.5 + n2 * 0.3);
 							
-							vec3 col1 = vec3(0.02, 0.04, 0.07); 
-							vec3 col2 = vec3(0.0, 0.96, 1.0);   
-							vec3 col3 = vec3(0.05, 0.15, 0.25); 
+							// Paleta Abreu: Azul Noche → Azul Abreu → Azul Día + Gris Metal
+							vec3 colBase   = vec3(0.0,   0.067, 0.180); // #00112e Azul Noche oscuro
+							vec3 colDeep   = vec3(0.0,   0.129, 0.369); // #00215e Azul Noche
+							vec3 colBlue   = vec3(0.0,   0.220, 0.573); // #003892 Azul Abreu
+							vec3 colSilver = vec3(0.325, 0.337, 0.353); // #53565a Gris Metal
 							
+							// Mezcla base: negro -> azul profundo
 							float mask = smoothstep(-1.0, 1.0, n2);
-							vec3 finalCol = mix(col1, col3, mask);
-							finalCol = mix(finalCol, col2 * 0.15, n1 * 0.5 + 0.5);
+							vec3 finalCol = mix(colBase, colDeep, mask);
 							
-							float vig = 1.0 - smoothstep(0.5, 1.5, length(uv - 0.5));
+							// Venas de azul eléctrico (como el diseño original)
+							finalCol = mix(finalCol, colBlue * 0.18, clamp(n1 * 0.5 + 0.5, 0.0, 1.0));
+							
+							// Destellos plata muy sutiles (nuevo)
+							float silverMask = smoothstep(0.65, 1.0, n3 * 0.5 + 0.5);
+							finalCol = mix(finalCol, colSilver * 0.08, silverMask * 0.6);
+							
+							// Viñeta suavizada
+							float vig = 1.0 - smoothstep(0.4, 1.4, length(uv - 0.5) * 1.3);
 							
 							gl_FragColor = vec4(finalCol * vig, 1.0);
 						}
@@ -149,30 +160,6 @@ const { title } = Astro.props;
 						requestAnimationFrame(render);
 					}
 				}
-			}
-
-			// --- CURSOR AND INTERACTIONS ---
-			const cursor = document.getElementById('cursor');
-			if (cursor) {
-				document.addEventListener('mousemove', (e) => {
-					cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
-				});
-
-				const attachHoverEffects = () => {
-					document.querySelectorAll('a, button').forEach(el => {
-						el.addEventListener('mouseenter', () => {
-							cursor.style.transform += ' scale(2.5)';
-							cursor.style.background = 'rgba(0, 245, 255, 0.1)';
-						});
-						el.addEventListener('mouseleave', () => {
-							cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
-							cursor.style.background = 'rgba(0, 245, 255, 0.3)';
-						});
-					});
-				};
-
-				attachHoverEffects();
-				document.addEventListener('astro:page-load', attachHoverEffects);
 			}
 
 			// --- SCROLL REVEAL ---

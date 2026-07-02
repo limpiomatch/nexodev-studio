@@ -1,60 +1,103 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-container: #00f5ff;
-  --color-background: #051424;
-  --color-secondary-fixed: #f6d9ff;
-  --color-outline-variant: #3a494a;
-  --color-on-background: #d4e4fa;
-  --color-on-surface: #d4e4fa;
-  --color-surface: #051424;
-  --color-on-surface-variant: #b9caca;
-  --color-surface-container-lowest: #010f1f;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-tertiary-fixed-dim: #4edea3;
-  --color-surface-bright: #2c3a4c;
-  --color-primary-fixed: #63f7ff;
-  --color-on-tertiary-container: #006f4c;
-  --color-surface-container-low: #0d1c2d;
-  --color-tertiary-container: #69f6b9;
-  --color-tertiary: #eafff0;
-  --color-surface-tint: #00dce5;
-  --color-on-tertiary-fixed: #002113;
-  --color-on-primary-fixed-variant: #004f53;
-  --color-secondary-container: #9d03de;
-  --color-secondary: #e8b3ff;
-  --color-on-primary-fixed: #002021;
-  --color-surface-variant: #273647;
-  --color-outline: #849495;
-  --color-on-secondary: #500074;
-  --color-primary-fixed-dim: #00dce5;
-  --color-surface-container-highest: #273647;
-  --color-secondary-fixed-dim: #e8b3ff;
-  --color-primary: #e9feff;
-  --color-on-secondary-fixed-variant: #7200a3;
-  --color-inverse-surface: #d4e4fa;
-  --color-surface-container-high: #1c2b3c;
-  --color-inverse-on-surface: #233143;
-  --color-on-tertiary: #003824;
-  --color-on-primary-container: #006c71;
-  --color-on-tertiary-fixed-variant: #005236;
-  --color-on-secondary-container: #f5d6ff;
-  --color-on-primary: #003739;
-  --color-on-error: #690005;
-  --color-surface-container: #122131;
-  --color-tertiary-fixed: #6ffbbe;
-  --color-inverse-primary: #00696e;
-  --color-on-secondary-fixed: #310049;
-  --color-on-error-container: #ffdad6;
-  --color-surface-dim: #051424;
+  /* ─── PALETA ABREU ─────────────────────────────────── */
+  /* Azul Abreu (Pantone 661 C) */
+  --color-azul-abreu: #003892;
+  /* Azul Día (Pantone 285 C) */
+  --color-azul-dia: #0073cb;
+  /* Azul Noche (Pantone 2757 C) */
+  --color-azul-noche: #00215e;
+  /* Negro */
+  --color-negro: #000000;
+  /* Gris Metal (P. Cool Gray 11 C) */
+  --color-gris-metal: #53565a;
+  /* Gris Luminoso (P. Cool Gray 4 C) */
+  --color-gris-luminoso: #bbbbbb;
 
+  /* ─── ROLES SEMÁNTICOS ──────────────────────────────── */
+  /* Fondo principal: Azul Noche casi negro */
+  --color-background: #00112e;
+  /* Superficies de tarjetas */
+  --color-surface: #00215e;
+  /* Superficies elevadas */
+  --color-surface-variant: #0a2d5a;
+
+  /* Textos */
+  --color-on-background: #f0f4ff;
+  --color-on-surface: #bbbbbb;
+  --color-on-surface-variant: #8a9ab8;
+
+  /* Primario → Azul Abreu */
+  --color-primary: #003892;
+  --color-primary-container: #0073cb;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #e8f3ff;
+  --color-primary-fixed: #0073cb;
+  --color-primary-fixed-dim: #005fa8;
+
+  /* Secundario → Azul Día */
+  --color-secondary: #0073cb;
+  --color-secondary-container: #003892;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #e0efff;
+  --color-secondary-fixed: #90c8f0;
+  --color-secondary-fixed-dim: #5aaee0;
+  --color-on-secondary-fixed: #00215e;
+  --color-on-secondary-fixed-variant: #003892;
+
+  /* Terciario → Azul Noche (acento profundo) */
+  --color-tertiary: #dbeafe;
+  --color-tertiary-container: #00215e;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #e8f3ff;
+  --color-tertiary-fixed: #90c8f0;
+  --color-tertiary-fixed-dim: #5aaee0;
+  --color-on-tertiary-fixed: #00112e;
+  --color-on-tertiary-fixed-variant: #003892;
+
+  /* Superficies adicionales */
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #00112e;
+  --color-surface-container: #001840;
+  --color-surface-container-high: #00215e;
+  --color-surface-container-highest: #003070;
+  --color-surface-bright: #003892;
+  --color-surface-dim: #000d20;
+  --color-surface-tint: #003892;
+
+  /* Inversas */
+  --color-inverse-surface: #e8f3ff;
+  --color-inverse-on-surface: #00112e;
+  --color-inverse-primary: #0073cb;
+
+  /* Error */
+  --color-error: #ef4444;
+  --color-error-container: #7f1d1d;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #fef2f2;
+
+  /* Bordes */
+  --color-outline: #53565a;
+  --color-outline-variant: #0073cb40;
+
+  /* ─── ACENTO PLATA (Gris Luminoso) ─────────────────── */
+  --color-silver: #bbbbbb;
+  --color-silver-bright: #d4d4d4;
+  --color-silver-dim: #888888;
+  --color-silver1: #bbbbbb;
+  --color-silver-glow: rgba(187, 187, 187, 0.15);
+  --color-text-silver: var(--color-silver1);
+  --color-border-silver: var(--color-silver-glow);
+
+  /* ─── ESPACIADO ──────────────────────────────────────── */
   --spacing-unit: 8px;
   --spacing-margin-mobile: 20px;
   --spacing-margin-desktop: 64px;
   --spacing-container-max: 1280px;
   --spacing-gutter: 24px;
 
+  /* ─── TIPOGRAFÍA ─────────────────────────────────────── */
   --font-headline-xl: "Plus Jakarta Sans";
   --font-body-md: "Geist";
   --font-headline-md: "Plus Jakarta Sans";
@@ -72,7 +115,7 @@
     color: var(--color-on-surface);
     font-family: 'Geist', sans-serif;
     overflow-x: hidden;
-    cursor: none; /* Custom cursor */
+    cursor: auto;
   }
 }
 
@@ -83,37 +126,85 @@
   letter-spacing: -0.04em;
   font-weight: 800;
 }
+
 @utility text-body-md {
   font-size: 16px;
   line-height: 1.6;
   font-weight: 400;
 }
+
 @utility text-headline-md {
   font-size: 24px;
   line-height: 1.4;
   font-weight: 600;
 }
+
 @utility text-body-lg {
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400;
 }
+
 @utility text-label-mono {
   font-size: 12px;
   line-height: 1.0;
   letter-spacing: 0.1em;
   font-weight: 500;
 }
+
 @utility text-headline-lg-mobile {
   font-size: 32px;
   line-height: 1.2;
   font-weight: 700;
 }
+
 @utility text-headline-lg {
   font-size: 40px;
   line-height: 1.2;
   letter-spacing: -0.02em;
   font-weight: 700;
+}
+
+/* Aplicar el plata a bordes sutiles para dar contraste técnico */
+.precision-border {
+  border: 1px solid var(--color-silver-glow);
+  /* Usando variable plata */
+  position: relative;
+}
+
+/* Ajustar los detalles de las esquinas para usar plata */
+.precision-border::before {
+  border-top: 1px solid var(--color-silver-dim);
+  border-left: 1px solid var(--color-silver-dim);
+}
+
+.precision-border::after {
+  border-bottom: 1px solid var(--color-silver-dim);
+  border-right: 1px solid var(--color-silver-dim);
+}
+
+/* Mejora en las tarjetas de cristal para integrar plata */
+.glass-card-refined {
+  background: rgba(0, 33, 94, 0.35);
+  /* Borde Azul Abreu con reflejos plata */
+  border: 1px solid rgba(0, 115, 203, 0.2);
+}
+
+/* Tipografía secundaria que debe ser plata para mejorar legibilidad */
+.text-body-md,
+.text-body-lg {
+  color: var(--color-silver-dim);
+  /* El gris claro/plata mejora la lectura frente al blanco puro */
+}
+
+.title-nexo {
+  color: #005eff;
+  font-size: 25px;
+}
+
+.title-studio {
+  color: #7A7C80;
+  font-size: 25px;
 }
 
 /* Canvas Background */
@@ -128,8 +219,8 @@
 }
 
 .technical-grid {
-  background-image: linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(0, 115, 203, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 115, 203, 0.05) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -161,30 +252,76 @@
 }
 
 .glass-card-refined {
-  background: rgba(18, 33, 49, 0.4);
-  border: 1px solid rgba(148, 163, 184, 0.08);
+  background: rgba(0, 33, 94, 0.35);
+  border: 1px solid rgba(0, 115, 203, 0.15);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card-refined:hover {
-  border-color: rgba(99, 247, 255, 0.4);
-  background: rgba(18, 33, 49, 0.6);
+  border-color: rgba(0, 115, 203, 0.5);
+  background: rgba(0, 56, 146, 0.5);
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 10px 30px -10px rgba(0, 245, 255, 0.15);
+  box-shadow: 0 10px 40px -10px rgba(0, 115, 203, 0.3), 0 0 20px -5px rgba(187, 187, 187, 0.08);
 }
 
 .project-card:hover {
-  box-shadow: 0 0 30px rgba(99, 247, 255, 0.1);
+  box-shadow: 0 0 30px rgba(0, 115, 203, 0.18), 0 0 60px rgba(187, 187, 187, 0.05);
+}
+
+/* ─── Acento Plata ─── */
+.silver-accent {
+  color: var(--color-silver-bright);
+}
+
+.silver-badge {
+  background: linear-gradient(135deg, rgba(187, 187, 187, 0.12), rgba(187, 187, 187, 0.05));
+  border: 1px solid rgba(187, 187, 187, 0.25);
+  color: #bbbbbb;
+}
+
+.silver-glow {
+  box-shadow: 0 0 20px rgba(187, 187, 187, 0.08), inset 0 1px 0 rgba(212, 212, 212, 0.06);
+}
+
+/* Shimmer plateado en hover para elementos con plata */
+.silver-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.silver-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(226, 232, 240, 0.06) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.silver-shimmer:hover::after {
+  transform: translateX(100%);
 }
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-scroll {
@@ -193,18 +330,7 @@
   animation: scroll 40s linear infinite;
 }
 
-.custom-cursor {
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 245, 255, 0.3);
-  border: 1px solid var(--color-primary-container);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s ease-out, background 0.3s ease;
-  mix-blend-mode: screen;
-}
+/* custom-cursor removed */
 
 .animate-fade-in-up {
   opacity: 0;
@@ -214,9 +340,17 @@
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
 
 /* Testimonials Slider Specific Styles */
 .testimonial-slider-container {
@@ -236,12 +370,12 @@
 
 @media (min-width: 768px) {
   .testimonial-slide {
-      flex: 0 0 50%;
+    flex: 0 0 50%;
   }
 }
 
 @media (min-width: 1024px) {
   .testimonial-slide {
-      flex: 0 0 33.333%;
+    flex: 0 0 33.333%;
   }
 }
