@@ -10,7 +10,8 @@
         class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
     >
         <a
-            href=""
+            href="#"
+            id="brand-logo"
             class="cursor-pointer font-headline-md text-headline-md font-bold tracking-tighter title-nexo"
         >
             NexoDev<span class="title-studio">Studio</span>
@@ -136,4 +137,18 @@
     );
 
     sections.forEach((section) => observer.observe(section));
+
+    // Logo / Brand click smooth scroll to top
+    const brandLogo = document.getElementById("brand-logo");
+    if (brandLogo) {
+        brandLogo.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            // Clear active states of navbar links
+            navLinks.forEach((link) => link.classList.remove("active"));
+        });
+    }
 </script>

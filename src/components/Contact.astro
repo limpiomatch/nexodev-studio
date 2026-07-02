@@ -402,7 +402,7 @@ Quiero agendar una sesión de 30 minutos.
                 form.appendChild(sendBtn);
                 if (inputArea) inputArea.appendChild(form);
 
-                input.focus();
+                input.focus({ preventScroll: true });
             }, 900);
         }
     }
